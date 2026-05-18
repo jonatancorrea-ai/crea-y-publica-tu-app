@@ -1,1 +1,780 @@
+<!DOCTYPE html>
+<html lang="es">
 
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+
+  <title>Crea y Publica tu App en 60 Segundos ⚡</title>
+
+  <meta name="description"
+    content="Aprende a crear y publicar una app de IA usando Google AI Studio, GitHub y Vercel. Sin código y en menos de 60 segundos." />
+
+  <meta name="theme-color" content="#000000" />
+
+  <style>
+    :root {
+      --bg: #000000;
+      --card: rgba(255, 255, 255, 0.04);
+      --border: rgba(255, 255, 255, 0.08);
+      --text: #ffffff;
+      --secondary: #a1a1a6;
+      --accent: #2997ff;
+      --max-width: 1200px;
+      --radius: 34px;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+
+      font-family:
+        -apple-system,
+        BlinkMacSystemFont,
+        "SF Pro Display",
+        "Helvetica Neue",
+        sans-serif;
+
+      overflow-x: hidden;
+      line-height: 1.1;
+      text-rendering: optimizeLegibility;
+    }
+
+    a {
+      text-decoration: none;
+    }
+
+    .bg-glow {
+      position: fixed;
+      inset: 0;
+      z-index: -2;
+      overflow: hidden;
+      pointer-events: none;
+    }
+
+    .bg-glow::before,
+    .bg-glow::after {
+      content: "";
+      position: absolute;
+      width: 700px;
+      height: 700px;
+      border-radius: 999px;
+      filter: blur(120px);
+    }
+
+    .bg-glow::before {
+      background: rgba(41, 151, 255, 0.18);
+      top: -250px;
+      left: -250px;
+    }
+
+    .bg-glow::after {
+      background: rgba(255, 255, 255, 0.06);
+      bottom: -300px;
+      right: -300px;
+    }
+
+    .container {
+      width: calc(100% - 40px);
+      max-width: 1200px;
+      margin: auto;
+    }
+
+    section {
+      position: relative;
+      padding: 120px 0;
+    }
+
+    /* NAV */
+
+    .nav {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      z-index: 1000;
+
+      backdrop-filter: blur(24px);
+      -webkit-backdrop-filter: blur(24px);
+
+      background: rgba(0, 0, 0, 0.45);
+
+      border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+    }
+
+    .nav-inner {
+      height: 72px;
+
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .brand {
+      font-size: .95rem;
+      color: #ffffff;
+      letter-spacing: -.3px;
+      font-weight: 600;
+      text-align: center;
+    }
+
+    .brand span {
+      color: var(--secondary);
+      font-weight: 500;
+    }
+
+    /* HERO */
+
+    .hero {
+      min-height: 100vh;
+
+      display: flex;
+      align-items: center;
+
+      text-align: center;
+
+      padding-top: 140px;
+      padding-bottom: 80px;
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+
+      padding: 12px 18px;
+
+      border-radius: 999px;
+
+      background: rgba(255, 255, 255, 0.05);
+
+      border: 1px solid rgba(255, 255, 255, 0.08);
+
+      color: #d2d2d7;
+
+      font-size: .92rem;
+
+      margin-bottom: 34px;
+    }
+
+    .hero h1 {
+      font-size: clamp(3.5rem, 12vw, 8rem);
+
+      line-height: .92;
+
+      letter-spacing: -5px;
+
+      font-weight: 700;
+
+      max-width: 1000px;
+
+      margin: auto;
+    }
+
+    .gradient {
+      background: linear-gradient(180deg, #ffffff 0%, #7cc2ff 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .hero p {
+      margin: 38px auto 0;
+
+      max-width: 760px;
+
+      color: var(--secondary);
+
+      font-size: clamp(1.08rem, 3vw, 1.4rem);
+
+      line-height: 1.5;
+
+      letter-spacing: -.3px;
+    }
+
+    .hero-actions {
+      margin-top: 50px;
+
+      display: flex;
+      justify-content: center;
+      gap: 14px;
+      flex-wrap: wrap;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+
+      padding: 18px 28px;
+
+      border-radius: 999px;
+
+      font-weight: 600;
+
+      transition: .3s ease;
+
+      font-size: .98rem;
+    }
+
+    .btn-primary {
+      background: #ffffff;
+      color: #000000;
+    }
+
+    .btn-secondary {
+      background: rgba(255, 255, 255, 0.05);
+      color: #ffffff;
+      border: 1px solid rgba(255, 255, 255, 0.08);
+    }
+
+    .btn:hover {
+      transform: translateY(-3px);
+    }
+
+    /* TITLES */
+
+    .section-title {
+      text-align: center;
+
+      font-size: clamp(2.6rem, 7vw, 5.5rem);
+
+      line-height: .95;
+
+      letter-spacing: -4px;
+
+      margin-bottom: 24px;
+    }
+
+    .section-subtitle {
+      max-width: 760px;
+
+      margin: auto;
+
+      text-align: center;
+
+      color: var(--secondary);
+
+      font-size: 1.15rem;
+
+      line-height: 1.6;
+    }
+
+    /* CARDS */
+
+    .cards {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+
+      gap: 26px;
+
+      margin-top: 80px;
+    }
+
+    .card {
+      position: relative;
+
+      padding: 40px;
+
+      border-radius: 34px;
+
+      background: var(--card);
+
+      border: 1px solid var(--border);
+
+      backdrop-filter: blur(20px);
+
+      overflow: hidden;
+
+      transition: .4s ease;
+    }
+
+    .card::before {
+      content: "";
+
+      position: absolute;
+
+      inset: 0;
+
+      background: linear-gradient(
+        180deg,
+        rgba(255, 255, 255, 0.08),
+        transparent
+      );
+
+      opacity: 0;
+
+      transition: .4s ease;
+    }
+
+    .card:hover {
+      transform: translateY(-8px);
+
+      border-color: rgba(41, 151, 255, 0.35);
+
+      box-shadow: 0 20px 60px rgba(41, 151, 255, 0.12);
+    }
+
+    .card:hover::before {
+      opacity: 1;
+    }
+
+    .step {
+      position: absolute;
+
+      top: 22px;
+      right: 28px;
+
+      font-size: 4rem;
+
+      font-weight: 700;
+
+      opacity: .08;
+    }
+
+    .card h3 {
+      font-size: 2rem;
+
+      line-height: 1;
+
+      margin-bottom: 24px;
+
+      letter-spacing: -1.5px;
+    }
+
+    .card p {
+      color: var(--secondary);
+
+      line-height: 1.7;
+
+      font-size: 1.02rem;
+    }
+
+    /* FEATURES */
+
+    .features {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+
+      gap: 24px;
+
+      margin-top: 80px;
+    }
+
+    .feature {
+      padding: 38px;
+
+      border-radius: 30px;
+
+      background: #0b0b0b;
+
+      border: 1px solid rgba(255, 255, 255, 0.06);
+    }
+
+    .feature h4 {
+      font-size: 1.5rem;
+
+      margin-bottom: 16px;
+
+      letter-spacing: -.5px;
+    }
+
+    .feature p {
+      color: var(--secondary);
+
+      line-height: 1.7;
+    }
+
+    /* CTA */
+
+    .cta {
+      text-align: center;
+      padding-bottom: 160px;
+    }
+
+    .cta h2 {
+      font-size: clamp(3rem, 8vw, 6rem);
+
+      line-height: .95;
+
+      letter-spacing: -4px;
+
+      margin-bottom: 26px;
+    }
+
+    .cta p {
+      max-width: 720px;
+
+      margin: auto;
+
+      color: var(--secondary);
+
+      font-size: 1.18rem;
+
+      line-height: 1.6;
+
+      margin-bottom: 42px;
+    }
+
+    .cta-helper {
+      max-width: 620px !important;
+
+      margin: 0 auto 28px !important;
+
+      color: #d2d2d7 !important;
+
+      font-size: 1.05rem !important;
+
+      line-height: 1.7 !important;
+    }
+
+    /* FOOTER */
+
+    footer {
+      padding: 30px 0 50px;
+
+      border-top: 1px solid rgba(255, 255, 255, 0.06);
+
+      text-align: center;
+
+      color: #6e6e73;
+
+      font-size: .92rem;
+
+      line-height: 1.7;
+    }
+
+    /* MOBILE */
+
+    @media (max-width: 980px) {
+
+      section {
+        padding: 90px 0;
+      }
+
+      .cards,
+      .features {
+        grid-template-columns: 1fr;
+      }
+
+      .card,
+      .feature {
+        padding: 34px;
+      }
+
+      .hero {
+        min-height: auto;
+      }
+
+      .hero h1 {
+        letter-spacing: -3px;
+      }
+
+      .section-title,
+      .cta h2 {
+        letter-spacing: -2px;
+      }
+    }
+
+    @media (max-width: 640px) {
+
+      .container {
+        width: calc(100% - 26px);
+      }
+
+      .nav-inner {
+        height: 64px;
+      }
+
+      .brand {
+        font-size: .82rem;
+      }
+
+      .hero {
+        padding-top: 130px;
+      }
+
+      .hero h1 {
+        font-size: 3.4rem;
+        line-height: .94;
+      }
+
+      .hero p {
+        font-size: 1.02rem;
+      }
+
+      .hero-actions {
+        flex-direction: column;
+      }
+
+      .btn {
+        width: 100%;
+      }
+
+      .card h3 {
+        font-size: 1.7rem;
+      }
+
+      .card p,
+      .feature p,
+      .cta-helper {
+        font-size: .98rem !important;
+      }
+
+      .section-subtitle,
+      .cta p {
+        font-size: 1rem;
+      }
+
+      .step {
+        font-size: 3.2rem;
+      }
+
+      footer {
+        font-size: .82rem;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="bg-glow"></div>
+
+  <!-- NAV -->
+
+  <nav class="nav">
+
+    <div class="container nav-inner">
+
+      <div class="brand">
+        Jonatan Correa <span>· Comunidad MODO FUTURO ⚡</span>
+      </div>
+
+    </div>
+
+  </nav>
+
+  <!-- HERO -->
+
+  <section class="hero">
+
+    <div class="container">
+
+      <div class="eyebrow">
+        ⚡ Google AI Studio · GitHub · Vercel
+      </div>
+
+      <h1>
+        CREA Y PUBLICA<br>
+        TU APP EN<br>
+        <span class="gradient">60 SEGUNDOS</span>
+      </h1>
+
+      <p>
+        Convierte tus ideas de Inteligencia Artificial en apps reales,
+        públicas y profesionales usando herramientas visuales.
+        Sin código. Sin servidores. Sin complicarte la vida.
+      </p>
+
+      <div class="hero-actions">
+
+        <a href="#pasos" class="btn btn-primary">
+          ⚡ Ver guía
+        </a>
+
+      </div>
+
+    </div>
+
+  </section>
+
+  <!-- PASOS -->
+
+  <section id="pasos">
+
+    <div class="container">
+
+      <h2 class="section-title">
+        La nueva forma<br>
+        de crear software
+      </h2>
+
+      <p class="section-subtitle">
+        Lo que antes tardaba meses y requería equipos técnicos,
+        ahora puedes hacerlo tú mismo en menos de un minuto.
+      </p>
+
+      <div class="cards">
+
+        <div class="card">
+
+          <div class="step">01</div>
+
+          <h3>
+            🔗 Conecta con GitHub
+          </h3>
+
+          <p>
+            Una vez tengas tu app lista en Google AI Studio,
+            simplemente conecta tu cuenta de GitHub.
+            Automáticamente se creará un repositorio donde vivirá todo el cerebro de tu aplicación.
+          </p>
+
+        </div>
+
+        <div class="card">
+
+          <div class="step">02</div>
+
+          <h3>
+            🚀 Importa en Vercel
+          </h3>
+
+          <p>
+            Entra en Vercel, conecta GitHub y selecciona tu proyecto.
+            La plataforma detectará automáticamente toda la configuración.
+            Literalmente unos cuantos clics.
+          </p>
+
+        </div>
+
+        <div class="card">
+
+          <div class="step">03</div>
+
+          <h3>
+            🌍 Haz Deploy
+          </h3>
+
+          <p>
+            Presiona el botón “Deploy” y tu app quedará pública en internet.
+            Vercel generará automáticamente una URL profesional lista para compartir con el mundo.
+          </p>
+
+        </div>
+
+      </div>
+
+    </div>
+
+  </section>
+
+  <!-- FEATURES -->
+
+  <section>
+
+    <div class="container">
+
+      <h2 class="section-title">
+        ¿Por qué esto<br>
+        cambia el juego?
+      </h2>
+
+      <p class="section-subtitle">
+        La barrera ya no es técnica.
+        La barrera ahora es quién se atreve a construir primero ⚡
+      </p>
+
+      <div class="features">
+
+        <div class="feature">
+
+          <h4>💸 100% Gratis</h4>
+
+          <p>
+            No necesitas servidores caros ni configuraciones complejas.
+            Puedes lanzar apps reales usando herramientas gratuitas.
+          </p>
+
+        </div>
+
+        <div class="feature">
+
+          <h4>🧠 Sin Programar</h4>
+
+          <p>
+            Todo el proceso es visual y automatizado.
+            Ideal para creadores, emprendedores y marcas personales.
+          </p>
+
+        </div>
+
+        <div class="feature">
+
+          <h4>⚡ Actualizaciones Automáticas</h4>
+
+          <p>
+            Si modificas algo en Google AI Studio,
+            Vercel puede actualizar tu app automáticamente.
+          </p>
+
+        </div>
+
+        <div class="feature">
+
+          <h4>🌍 Nivel Startup</h4>
+
+          <p>
+            Tu aplicación quedará alojada usando infraestructura moderna utilizada por productos reales.
+          </p>
+
+        </div>
+
+      </div>
+
+    </div>
+
+  </section>
+
+  <!-- CTA -->
+
+  <section class="cta">
+
+    <div class="container">
+
+      <h2>
+        Las ideas ahora<br>
+        se publican rápido ⚡
+      </h2>
+
+      <p>
+        Ya no necesitas esperar meses para lanzar algo.
+        Hoy puedes convertir una idea en una app pública en cuestión de minutos.
+      </p>
+
+      <p class="cta-helper">
+        ¿Necesitas ayuda para publicar tu app o no sabes por dónde comenzar?<br>
+        Agenda una llamada gratuita conmigo y te ayudaré a tener claridad para llevar tu idea al mundo real ⚡
+      </p>
+
+      <a href="TU-LINK-DE-WHATSAPP" class="btn btn-primary">
+        🤝 Hagámoslo juntos
+      </a>
+
+    </div>
+
+  </section>
+
+  <!-- FOOTER -->
+
+  <footer>
+
+    Hecho por Jonatan Correa · Comunidad MODO FUTURO ⚡<br>
+    El futuro pertenece a quienes construyen primero.
+
+  </footer>
+
+</body>
+
+</html>
